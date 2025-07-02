@@ -1,10 +1,16 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const DashboardScreen = ({navigation}) => {
+const DashboardScreen = ({navigation, transactions}) => {
 
-    const income = 0;
-    const expenses = 0;
+    const income = transactions 
+      .filter((t) => t.type === 'Income')
+      .reduce((sum, t) => sum + t.amount, 0);
+
+    const expenses = transactions
+      .filter((t) => t.type === 'Expense')
+      .reduce((sum, t) => sum + t.amount, 0);
+
     const balance = income - expenses;
 
   return (
