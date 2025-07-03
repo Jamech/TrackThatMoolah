@@ -1,5 +1,6 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import TransactionItem from '../components/TransactionItem';
 
 const DashboardScreen = ({navigation, transactions}) => {
 
@@ -35,6 +36,15 @@ const DashboardScreen = ({navigation, transactions}) => {
       <View style={{marginTop: 30}}>
         <Button title="Add Transaction" onPress={() => navigation.navigate('AddTransaction')}/>
       </View>
+
+      <Text style={styles.sectionTitle}>Recent Transactions</Text>
+
+      <FlatList
+        data={transactions}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({item}) => <TransactionItem item={item}/>}
+        ListEmptyComponent={<Text style={{textAlign: 'center', marginTop: 20}}>No transactions made</Text>}
+      />
     </View>
   )
 }
@@ -71,5 +81,10 @@ const styles = StyleSheet.create({
   balance: {
     backgroundColor: '#d1fae5', // light green
   },
-
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    marginTop: 30,
+    marginBottom: 10,
+  }
 })
